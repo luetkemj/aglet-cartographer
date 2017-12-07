@@ -1,5 +1,6 @@
 // @flow
 
+// Adds the coords of two hexes together and returns a new hex
 export default function addHexes(
   hex1:{x: number, y:number, z: number},
   hex2:{x: number, y:number, z: number},
