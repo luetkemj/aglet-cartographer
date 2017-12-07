@@ -32,13 +32,19 @@ Build for production: `yarn build`
 
 Running the build script will remove the existing dist directory, run all linters and tests, and run webpack to build an es5 transpiled, uglified, bundle located in the dist directory.
 
+## Type Checking
+
+This project uses [Flow](https://flow.org/en/) for static type checking.
+
+`yarn flow`
+
 ## Tests
 
 This project uses jest for unit tests, code coverage reports, and component snap shots.
 
 To run tests in watch mode: `yarn test:watch`
 
-To run lint all code and run all tests: `yarn test`
+To run lint all code, run all tests with a coverage report, and type check with flow: `yarn test`
 
 ## Style guide
 
