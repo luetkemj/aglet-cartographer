@@ -1,4 +1,4 @@
-import hexDirection from './hexDirection';
+import { hexDirection } from '../../index.prod';
 
 describe('hexDirection', () => {
   it('should exist', () => {
