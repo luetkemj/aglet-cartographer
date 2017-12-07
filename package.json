@@ -19,7 +19,6 @@
     "clean": "yarn clean:coverage && yarn clean:dist && yarn clean:storybook && yarn clean:node_modules",
     "dev": "yarn storybook",
     "flow": "./node_modules/.bin/flow",
-    "flow:stop": "./node_modules/.bin/flow stop",
     "lint:eslint": "eslint .",
     "lint:sass-lint": "sass-lint -c .sass-lint.yml 'src/**/*.scss' -v -q",
     "lint": "yarn lint:eslint && yarn lint:sass-lint",
