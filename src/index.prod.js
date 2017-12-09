@@ -1,6 +1,7 @@
 export addHexes from './lib/add-hexes';
 export hexDirection from './lib/hex-direction';
 export hexDistance from './lib/hex-distance';
+export hexGetThirdCoordinate from './lib/hex-get-third-coordinate';
 export hexHeight from './lib/hex-height';
 export hexNeighbor from './lib/hex-neighbor';
 export hexNeighbors from './lib/hex-neighbors';
