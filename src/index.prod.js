@@ -1,3 +1,4 @@
+// Math functions
 export addHexes from './lib/add-hexes';
 export hexDirection from './lib/hex-direction';
 export hexDistance from './lib/hex-distance';
@@ -9,3 +10,6 @@ export hexToId from './lib/hex-to-id';
 export hexToPixel from './lib/hex-to-pixel';
 export hexWidth from './lib/hex-width';
 export idToHex from './lib/id-to-hex';
+
+// Mapping functions
+export isSeed from './lib/is-seed';
