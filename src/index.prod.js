@@ -8,3 +8,4 @@ export hexNeighbors from './lib/hex-neighbors';
 export hexToId from './lib/hex-to-id';
 export hexToPixel from './lib/hex-to-pixel';
 export hexWidth from './lib/hex-width';
+export idToHex from './lib/id-to-hex';
