@@ -5,5 +5,6 @@ export hexGetThirdCoordinate from './lib/hex-get-third-coordinate';
 export hexHeight from './lib/hex-height';
 export hexNeighbor from './lib/hex-neighbor';
 export hexNeighbors from './lib/hex-neighbors';
+export hexToId from './lib/hex-to-id';
 export hexToPixel from './lib/hex-to-pixel';
 export hexWidth from './lib/hex-width';
