@@ -13,4 +13,5 @@ export idToHex from './lib/id-to-hex';
 
 // Mapping functions
 export buildRatioTable from './lib/build-ratio-table';
+export buildTerrainSeed from './lib/build-terrain-seed';
 export isSeed from './lib/is-seed';
