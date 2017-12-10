@@ -12,4 +12,5 @@ export hexWidth from './lib/hex-width';
 export idToHex from './lib/id-to-hex';
 
 // Mapping functions
+export buildRatioTable from './lib/build-ratio-table';
 export isSeed from './lib/is-seed';
