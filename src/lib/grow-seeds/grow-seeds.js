@@ -1,7 +1,14 @@
+// @flow
+
 import { each, merge } from 'lodash';
 import { hexDistance } from '../../index.prod';
 
-export default function growSeeds(hexes, idMapDirt, idMapSeeds, idMapTerrainKeys) {
+export default function growSeeds(
+  hexes: { x: number, y: number, z: number },
+  idMapDirt: Array<Object>,
+  idMapSeeds: Array<Object>,
+  idMapTerrainKeys: Array<Object>,
+): Object {
   each(idMapDirt, (idDirt) => {
     const shortest = {};
 
