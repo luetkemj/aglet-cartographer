@@ -15,3 +15,4 @@ export idToHex from './lib/id-to-hex';
 export buildRatioTable from './lib/build-ratio-table';
 export buildTerrainSeed from './lib/build-terrain-seed';
 export isSeed from './lib/is-seed';
+export markBoundary from './lib/mark-boundary';
