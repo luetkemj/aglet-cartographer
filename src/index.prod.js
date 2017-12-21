@@ -19,3 +19,6 @@ export isSeed from './lib/is-seed';
 export makeOceans from './lib/make-oceans';
 export markBoundary from './lib/mark-boundary';
 export markBoundaries from './lib/mark-boundaries';
+
+// Generators
+export generateHexmap from './lib/generate-hexmap';
