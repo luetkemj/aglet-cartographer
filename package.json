@@ -25,7 +25,7 @@
     "prepublish": "yarn build",
     "reinstall": "yarn clean && yarn",
     "storybook": "start-storybook -p 6006",
-    "test:watch": "jest --watch --coverage",
+    "test:watch": "jest --watch",
     "test": "yarn lint && jest --coverage && yarn flow",
     "webpack": "./node_modules/.bin/webpack --config webpack.config.prod.js"
   },
