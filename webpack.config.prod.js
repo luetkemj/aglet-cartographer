@@ -26,6 +26,17 @@ module.exports = {
         },
       },
     }, {
+      test: /\.(png|jpg|gif)$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[path][name].[ext]',
+            publicPath: `${srcPath}/assets/`,
+          },
+        },
+      ],
+    }, {
       test: /\.svg/,
       use: [{
         loader: 'url-loader',
