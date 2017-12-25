@@ -12,19 +12,27 @@ import style from './hexmap.component.scss';
 
 export default class Hexmap extends Component {
   componentWillMount() {
+    const {
+      width,
+      height,
+      hexSize,
+      seedChance,
+      seedChanceRatios,
+    } = this.props.config.map;
+
     this.data = generateHexmap({
-      gridColumns: this.props.config.map.width,
-      gridRows: this.props.config.map.height,
-      hexSize: this.props.config.map.hexSize,
-      seedChance: this.props.config.map.seedChance,
-      seedChanceRatios: this.props.config.map.seedChanceRatios,
+      gridColumns: width,
+      gridRows: height,
+      hexSize,
+      seedChance,
+      seedChanceRatios,
     });
 
     this.world = {};
     this.world.data = this.data.hexes;
-    this.world.width =
-      ((hexWidth(this.props.config.map.hexSize) * this.props.config.map.height) / 2) + 40;
-    this.world.height = hexHeight(this.props.config.map.hexSize) * this.props.config.map.height;
+    // this.world.width = ((hexWidth(hexSize) * (width) * 0.75) / 2) - (width * 4);
+    this.world.width = ((hexWidth(hexSize) * 0.75) * width) / 2;
+    this.world.height = hexHeight(hexSize) * height;
   }
 
   componentDidMount() {

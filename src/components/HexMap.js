@@ -19,6 +19,9 @@ export default class HexMap extends Application {
 
     this.addHexes();
 
+    this.stage.x = 0;
+    this.stage.y = 0;
+
     this.stage.interactive = true;
     this.stage
       .on('pointerdown', this.onDragStart.bind(this))
@@ -86,28 +89,28 @@ export default class HexMap extends Application {
       const minX = this.data.width * -1;
       const minY = (this.data.height * -1) + 550;
 
-      if (this.x + movementX > maxX) {
-        this.x = maxX;
+      if ((this.stage.x + movementX) > maxX) {
+        this.stage.x = maxX;
       } else {
-        this.x += movementX;
+        this.stage.x += movementX;
       }
 
-      if (this.x + movementX < minX) {
-        this.x = minX;
+      if ((this.stage.x + movementX) < minX) {
+        this.stage.x = minX;
       } else {
-        this.x += movementX;
+        this.stage.x += movementX;
       }
 
-      if (this.y + movementY > maxY) {
-        this.y = maxY;
+      if ((this.stage.y + movementY) > maxY) {
+        this.stage.y = maxY;
       } else {
-        this.y += movementY;
+        this.stage.y += movementY;
       }
 
-      if (this.y + movementY < minY) {
-        this.y = minY;
+      if ((this.stage.y + movementY) < minY) {
+        this.stage.y = minY;
       } else {
-        this.y += movementY;
+        this.stage.y += movementY;
       }
     }
   }
