@@ -3,6 +3,7 @@
 import {
   buildRatioTable,
   buildTerrainSeed,
+  generateSettlement,
   growSeeds,
   hexGetThirdCoordinate,
   hexHeight,
@@ -88,6 +89,7 @@ export default function rectangle({
 
   growSeeds(hexes, idMapDirt, idMapSeeds, idMapTerrainKeys);
   makeOceans(hexes, idMapTerrainKeys, idMapBoundaries);
+  generateSettlement(hexes);
 
   return {
     idMap,
