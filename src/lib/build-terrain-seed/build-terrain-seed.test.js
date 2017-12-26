@@ -26,8 +26,8 @@ describe('buildTerrainSeed', () => {
     expect(terrainSeed).toMatchObject(expectedTerrainSeed);
   });
 
-  it('should have an instanceOf Texture at key texture', () => {
-    expect(terrainSeed.texture).toBeInstanceOf(Texture);
+  it('should have an array of Texture instaces at key textures', () => {
+    expect(terrainSeed.textures[0]).toBeInstanceOf(Texture);
   });
 
   it('should contain the correct number of keys', () => {

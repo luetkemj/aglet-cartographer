@@ -1,6 +1,6 @@
 // @flow
 import { each, random } from 'lodash';
-import { terrains } from '../../textures/terrains.textures';
+import { colors, terrains } from '../../textures/terrains.textures';
 
 export default function buildTerrainSeed(
   index: number,
@@ -22,7 +22,10 @@ export default function buildTerrainSeed(
   return {
     terrain,
     terrainKey: index,
-    texture: terrains.textures[terrain],
+    textures: [
+      colors.textures[terrain],
+      terrains.textures[terrain],
+    ],
     isSeed: true,
   };
 }

@@ -1,4 +1,4 @@
-import { Application, Text, TextStyle } from 'pixi.js';
+import { Application, Sprite, Text, TextStyle } from 'pixi.js';
 import { each } from 'lodash';
 import HexTile from './HexTile';
 
@@ -33,10 +33,20 @@ export default class HexMap extends Application {
   addHexes() {
     each(this.data.data, (hex) => {
       // add hexTile
-      const tile = new HexTile(hex.texture, hex, {
+      const tile = new HexTile(hex, {
         showSeeds: this.config.showSeeds,
         showBoundaries: this.config.showBoundaries,
       });
+
+      each(hex.textures, (texture) => {
+        const sprite = new Sprite(texture);
+        sprite.position.set(0, 0);
+        sprite.width = hex.width;
+        sprite.height = hex.height;
+
+        tile.addChild(sprite);
+      });
+
       this.stage.addChild(tile);
 
       // add hexTerrainKeys
@@ -69,7 +79,7 @@ export default class HexMap extends Application {
 
   // drag map
   onDragStart() {
-    this.draggingStage = true;
+    this.draggingStage = false; // true to getting scrolling
   }
 
   onDragEnd() {

@@ -14,19 +14,20 @@ storiesOf('Hexmap', module)
     <Hexmap
       config={{
         map: {
-          width: 100,
-          height: 100,
+          width: 32,
+          height: 16,
           hexSize: 20,
           seedChance: 15,
           seedChanceRatios: [
-            { coast: 1 },
-            { desert: 2 },
-            { forest: 3 },
-            { hills: 4 },
-            { mountains: 5 },
-            { plains: 6 },
-            { swamp: 7 },
-            { water: 8 },
+            { coast: 0 },
+            { desert: 1 },
+            { forest: 1 },
+            { hills: 1 },
+            { mountains: 1 },
+            { plains: 1 },
+            { swamp: 1 },
+            { lake: 0 },
+            { ocean: 1 },
           ],
         },
       }}

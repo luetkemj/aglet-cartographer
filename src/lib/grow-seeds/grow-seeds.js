@@ -31,7 +31,7 @@ export default function growSeeds(
     });
 
     merge(hexes[idDirt], {
-      texture: hexes[shortest.idSeed].texture,
+      textures: hexes[shortest.idSeed].textures,
       terrain: hexes[shortest.idSeed].terrain,
       terrainKey: hexes[shortest.idSeed].terrainKey,
     });
