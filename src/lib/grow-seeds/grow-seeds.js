@@ -29,10 +29,6 @@ export default function growSeeds(
     // update idMapTerrainKeys
     idMapTerrainKeys[newHexes[shortest.seedId].terrainKey].push(hexId);
 
-    merge(newHexes[hexId].texture, {
-      texture: newHexes[shortest.seedId].texture,
-    });
-
     merge(newHexes[hexId], {
       textures: newHexes[shortest.seedId].textures,
       terrain: newHexes[shortest.seedId].terrain,

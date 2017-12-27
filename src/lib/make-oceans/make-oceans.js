@@ -1,19 +1,20 @@
 // @flow
-import { each, merge } from 'lodash';
+import { cloneDeep, each, merge } from 'lodash';
 import { colors } from '../../textures/terrains.textures';
 
 
 // @TODO should this be a pure function? yeah probably
 export default function makeOceans(
-  hexes: { x: number, y: number, z: number },
+  hexes: Object,
   idMapTerrainKeys: Array<Object>,
-  idMapBoundaries: Array<Object>,
+  idMapBoundaries: Array<String>,
 ) {
+  const newHexes = cloneDeep(hexes);
   const blackList = {};
 
   each(idMapBoundaries, (boundaryId) => {
-    if (hexes[boundaryId]) {
-      const { terrainKey } = hexes[boundaryId];
+    if (newHexes[boundaryId]) {
+      const { terrainKey } = newHexes[boundaryId];
 
       // build black list
       if (!blackList[terrainKey]) {
@@ -24,11 +25,13 @@ export default function makeOceans(
     // use blacklist to change terrain blobs to water
     each(blackList, (terrainKey) => {
       each(idMapTerrainKeys[terrainKey], (hexId) => {
-        merge(hexes[hexId], {
+        merge(newHexes[hexId], {
           textures: [colors.textures.ocean, null],
           terrain: 'ocean',
         });
       });
     });
   });
+
+  return newHexes;
 }
