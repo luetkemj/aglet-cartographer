@@ -17,10 +17,12 @@ export buildRatioTable from './lib/build-ratio-table';
 export buildTerrainSeed from './lib/build-terrain-seed';
 export generateSettlement from './lib/generate-settlement';
 export growSeeds from './lib/grow-seeds';
+export hexesBootstrap from './lib/hexes-bootstrap';
 export isSeed from './lib/is-seed';
 export makeOceans from './lib/make-oceans';
 export markBoundary from './lib/mark-boundary';
 export markBoundaries from './lib/mark-boundaries';
+export seedHexes from './lib/seed-hexes';
 
 // Generators
 export generateHexmap from './lib/generate-hexmap';
