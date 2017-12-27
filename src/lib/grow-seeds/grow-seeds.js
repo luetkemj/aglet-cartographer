@@ -1,41 +1,44 @@
 // @flow
 
-import { each, merge } from 'lodash';
+import { cloneDeep, each, merge, without } from 'lodash';
 import { hexDistance } from '../../index.prod';
 
 export default function growSeeds(
-  hexes: { x: number, y: number, z: number },
-  idMapDirt: Array<Object>,
-  idMapSeeds: Array<Object>,
+  hexes: Object,
+  seedIds: Array<String>,
   idMapTerrainKeys: Array<Object>,
 ): Object {
-  each(idMapDirt, (idDirt) => {
+  const newHexes = cloneDeep(hexes);
+  const hexIds = Object.keys(newHexes);
+  const hexIdsWithoutSeeds = without(hexIds, ...seedIds);
+
+  each(hexIdsWithoutSeeds, (hexId) => {
     const shortest = {};
 
-    each(idMapSeeds, (idSeed) => {
-      const distance = hexDistance(hexes[idDirt], hexes[idSeed]);
+    each(seedIds, (seedId) => {
+      const distance = hexDistance(newHexes[hexId], newHexes[seedId]);
 
       if (!shortest.distance || distance < shortest.distance) {
         merge(shortest, {
           distance,
-          idSeed,
+          seedId,
         });
       }
     });
 
     // update idMapTerrainKeys
-    idMapTerrainKeys[hexes[shortest.idSeed].terrainKey].push(idDirt);
+    idMapTerrainKeys[newHexes[shortest.seedId].terrainKey].push(hexId);
 
-    merge(hexes[idDirt].texture, {
-      texture: hexes[shortest.idSeed].texture,
+    merge(newHexes[hexId].texture, {
+      texture: newHexes[shortest.seedId].texture,
     });
 
-    merge(hexes[idDirt], {
-      textures: hexes[shortest.idSeed].textures,
-      terrain: hexes[shortest.idSeed].terrain,
-      terrainKey: hexes[shortest.idSeed].terrainKey,
+    merge(newHexes[hexId], {
+      textures: newHexes[shortest.seedId].textures,
+      terrain: newHexes[shortest.seedId].terrain,
+      terrainKey: newHexes[shortest.seedId].terrainKey,
     });
   });
 
-  return hexes;
+  return newHexes;
 }
