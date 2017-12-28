@@ -21,6 +21,7 @@ export generateSettlement from './lib/generate-settlement';
 export growSeeds from './lib/grow-seeds';
 export hexesBootstrap from './lib/hexes-bootstrap';
 export isSeed from './lib/is-seed';
+export makeKingdoms from './lib/make-kingdoms';
 export makeOceans from './lib/make-oceans';
 export markBoundaries from './lib/mark-boundaries';
 export seedHexes from './lib/seed-hexes';

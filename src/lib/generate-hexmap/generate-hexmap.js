@@ -1,10 +1,10 @@
 // @flow
 import {
-  generateSettlement,
   growSeeds,
   boundaries,
   hexesBootstrap,
   hexRectangle,
+  makeKingdoms,
   makeOceans,
   markBoundaries,
   seedHexes,
@@ -45,16 +45,22 @@ export default function generateHexmap({
   hexes = seededHexes.hexes; // eslint-disable-line prefer-destructuring
   hexes = growSeeds(hexes, seedIds, idMapTerrainKeys);
   hexes = makeOceans(hexes, idMapTerrainKeys, idMapBoundaries);
-  hexes = generateSettlement(hexes);
+
+  const { hexes: hexesWithKingdoms, capitalCityIds, idMapKingdoms } = makeKingdoms(hexes, 3);
+  hexes = hexesWithKingdoms;
 
   const hexMap = {
+    capitalCityIds,
+    hexes,
     idMap,
     idMapDirt,
     idMapBoundaries,
-    seedIds,
+    idMapKingdoms,
     idMapTerrainKeys,
-    hexes,
+    seedIds,
   };
+
+  console.log(hexMap);
 
   return hexMap;
 }
