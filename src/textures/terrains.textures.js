@@ -1,4 +1,4 @@
-import { Texture } from 'pixi.js';
+import { loader, Texture } from 'pixi.js';
 
 // colors
 import colorCoast from '../assets/sprites/color-coast.png';
@@ -42,77 +42,125 @@ import iconShrine from '../assets/sprites/icon-shrine.png';
 import iconLighthouse from '../assets/sprites/icon-lighthouse.png';
 import iconRockShelter from '../assets/sprites/icon-rock-shelter.png';
 
-export const colors = {
-  keys: ['coast', 'desert', 'forest', 'hills', 'mountains', 'plains', 'swamp', 'lake', 'ocean'],
-  textures: {
-    coast: new Texture.fromImage(colorCoast),
-    desert: new Texture.fromImage(colorDesert),
-    forest: new Texture.fromImage(colorForest),
-    hills: new Texture.fromImage(colorHills),
-    mountains: new Texture.fromImage(colorMountains),
-    plains: new Texture.fromImage(colorPlains),
-    swamp: new Texture.fromImage(colorSwamp),
-    lake: new Texture.fromImage(colorLake),
-    ocean: new Texture.fromImage(colorOcean),
-  },
-};
+export const colors = {};
+export const terrains = {};
+export const constructedLocations = {};
+export function loadTextures(handleOnComplete) {
+  // http://pixijs.download/release/docs/PIXI.loaders.Loader.html
+  loader
+    .add('colorCoast', colorCoast)
+    .add('colorDesert', colorDesert)
+    .add('colorForest', colorForest)
+    .add('colorHills', colorHills)
+    .add('colorMountains', colorMountains)
+    .add('colorPlains', colorPlains)
+    .add('colorSwamp', colorSwamp)
+    .add('colorLake', colorLake)
+    .add('colorOcean', colorOcean)
+    .add('iconCoast', iconCoast)
+    .add('iconDesert', iconDesert)
+    .add('iconForest', iconForest)
+    .add('iconHills', iconHills)
+    .add('iconMountains', iconMountains)
+    .add('iconPlains', iconPlains)
+    .add('iconSwamp', iconSwamp)
+    .add('iconCapital', iconCapital)
+    .add('iconCity', iconCity)
+    .add('iconTown', iconTown)
+    .add('iconVillage', iconVillage)
+    .add('iconHamlet', iconHamlet)
+    .add('iconPalace', iconPalace)
+    .add('iconCastle', iconCastle)
+    .add('iconStronghold', iconStronghold)
+    .add('iconFort', iconFort)
+    .add('iconCamp', iconCamp)
+    .add('iconMine', iconMine)
+    .add('iconMountainStronghold', iconMountainStronghold)
+    .add('iconTreeFortress', iconTreeFortress)
+    .add('iconShire', iconShire)
+    .add('iconFloatingStronghold', iconFloatingStronghold)
+    .add('iconRuin', iconRuin)
+    .add('iconTemple', iconTemple)
+    .add('iconShrine', iconShrine)
+    .add('iconLighthouse', iconLighthouse)
+    .add('iconRockShelter', iconRockShelter);
 
-export const terrains = {
-  keys: ['coast', 'desert', 'forest', 'hills', 'mountains', 'plains', 'swamp'],
-  textures: {
-    coast: new Texture.fromImage(iconCoast),
-    desert: new Texture.fromImage(iconDesert),
-    forest: new Texture.fromImage(iconForest),
-    hills: new Texture.fromImage(iconHills),
-    mountains: new Texture.fromImage(iconMountains),
-    plains: new Texture.fromImage(iconPlains),
-    swamp: new Texture.fromImage(iconSwamp),
-  },
-};
+  loader.load((l, resources) => {
+    colors.keys = ['coast', 'desert', 'forest', 'hills', 'mountains', 'plains', 'swamp', 'lake', 'ocean'];
+    colors.textures = {
+      coast: new Texture.fromImage(resources.colorCoast.url),
+      desert: new Texture.fromImage(resources.colorDesert.url),
+      forest: new Texture.fromImage(resources.colorForest.url),
+      hills: new Texture.fromImage(resources.colorHills.url),
+      mountains: new Texture.fromImage(resources.colorMountains.url),
+      plains: new Texture.fromImage(resources.colorPlains.url),
+      swamp: new Texture.fromImage(resources.colorSwamp.url),
+      lake: new Texture.fromImage(resources.colorLake.url),
+      ocean: new Texture.fromImage(resources.colorOcean.url),
+    };
 
-export const constructedLocations = {
-  keys: [
-    'capital',
-    'city',
-    'town',
-    'village',
-    'hamlet',
-    'palace',
-    'castle',
-    'stronghold',
-    'fort',
-    'camp',
-    'mine',
-    'mountainStronghold',
-    'treeFortress',
-    'shire',
-    'floatingStronghold',
-    'ruin',
-    'temple',
-    'shrine',
-    'lighthouse',
-    'rockShelter',
-  ],
-  textures: {
-    capital: new Texture.fromImage(iconCapital),
-    city: new Texture.fromImage(iconCity),
-    town: new Texture.fromImage(iconTown),
-    village: new Texture.fromImage(iconVillage),
-    hamlet: new Texture.fromImage(iconHamlet),
-    palace: new Texture.fromImage(iconPalace),
-    castle: new Texture.fromImage(iconCastle),
-    stronghold: new Texture.fromImage(iconStronghold),
-    fort: new Texture.fromImage(iconFort),
-    camp: new Texture.fromImage(iconCamp),
-    mine: new Texture.fromImage(iconMine),
-    mountainStronghold: new Texture.fromImage(iconMountainStronghold),
-    treeFortress: new Texture.fromImage(iconTreeFortress),
-    shire: new Texture.fromImage(iconShire),
-    floatingStronghold: new Texture.fromImage(iconFloatingStronghold),
-    ruin: new Texture.fromImage(iconRuin),
-    temple: new Texture.fromImage(iconTemple),
-    shrine: new Texture.fromImage(iconShrine),
-    lighthouse: new Texture.fromImage(iconLighthouse),
-    rockShelter: new Texture.fromImage(iconRockShelter),
-  },
-};
+    terrains.keys = ['coast', 'desert', 'forest', 'hills', 'mountains', 'plains', 'swamp'];
+    terrains.textures = {
+      coast: new Texture.fromImage(resources.iconCoast.url),
+      desert: new Texture.fromImage(resources.iconDesert.url),
+      forest: new Texture.fromImage(resources.iconForest.url),
+      hills: new Texture.fromImage(resources.iconHills.url),
+      mountains: new Texture.fromImage(resources.iconMountains.url),
+      plains: new Texture.fromImage(resources.iconPlains.url),
+      swamp: new Texture.fromImage(resources.iconSwamp.url),
+    };
+
+    constructedLocations.keys = [
+      'capital',
+      'city',
+      'town',
+      'village',
+      'hamlet',
+      'palace',
+      'castle',
+      'stronghold',
+      'fort',
+      'camp',
+      'mine',
+      'mountainStronghold',
+      'treeFortress',
+      'shire',
+      'floatingStronghold',
+      'ruin',
+      'temple',
+      'shrine',
+      'lighthouse',
+      'rockShelter',
+    ];
+    constructedLocations.textures = {
+      capital: new Texture.fromImage(resources.iconCapital.url),
+      city: new Texture.fromImage(resources.iconCity.url),
+      town: new Texture.fromImage(resources.iconTown.url),
+      village: new Texture.fromImage(resources.iconVillage.url),
+      hamlet: new Texture.fromImage(resources.iconHamlet.url),
+      palace: new Texture.fromImage(resources.iconPalace.url),
+      castle: new Texture.fromImage(resources.iconCastle.url),
+      stronghold: new Texture.fromImage(resources.iconStronghold.url),
+      fort: new Texture.fromImage(resources.iconFort.url),
+      camp: new Texture.fromImage(resources.iconCamp.url),
+      mine: new Texture.fromImage(resources.iconMine.url),
+      mountainStronghold: new Texture.fromImage(resources.iconMountainStronghold.url),
+      treeFortress: new Texture.fromImage(resources.iconTreeFortress.url),
+      shire: new Texture.fromImage(resources.iconShire.url),
+      floatingStronghold: new Texture.fromImage(resources.iconFloatingStronghold.url),
+      ruin: new Texture.fromImage(resources.iconRuin.url),
+      temple: new Texture.fromImage(resources.iconTemple.url),
+      shrine: new Texture.fromImage(resources.iconShrine.url),
+      lighthouse: new Texture.fromImage(resources.iconLighthouse.url),
+      rockShelter: new Texture.fromImage(resources.iconRockShelter.url),
+    };
+  });
+
+  // throughout the process multiple signals can be dispatched.
+  loader.onProgress.add(() => {}); // called once per loaded/errored file
+  loader.onError.add(() => {}); // called once per errored file
+  loader.onLoad.add(() => {}); // called once per loaded file
+  loader.onComplete.add(() => handleOnComplete()); // called once when queued resources all load.
+}
+
+export default loader;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { loadTextures } from '../textures/terrains.textures';
 import HexMap from './HexMap';
 import {
   generateHexmap,
@@ -12,6 +13,10 @@ import style from './hexmap.component.scss';
 
 export default class Hexmap extends Component {
   componentWillMount() {
+    loadTextures(this.buildMapData.bind(this));
+  }
+
+  buildMapData() {
     const {
       width,
       height,
@@ -30,12 +35,9 @@ export default class Hexmap extends Component {
 
     this.world = {};
     this.world.data = this.data.hexes;
-    // this.world.width = ((hexWidth(hexSize) * (width) * 0.75) / 2) - (width * 4);
     this.world.width = ((hexWidth(hexSize) * 0.75) * width) / 2;
     this.world.height = hexHeight(hexSize) * height;
-  }
 
-  componentDidMount() {
     this.pixiApp = new HexMap({
       showTerrainKeys: false,
       showSeeds: false,
