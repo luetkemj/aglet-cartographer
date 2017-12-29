@@ -11,6 +11,14 @@ import colorSwamp from '../assets/sprites/color-swamp.png';
 import colorLake from '../assets/sprites/color-ocean.png';
 import colorOcean from '../assets/sprites/color-deep-ocean.png';
 
+// colors population density
+import colorDense from '../assets/sprites/color-dense.png';
+import colorScattered from '../assets/sprites/color-scattered.png';
+import colorFrontier from '../assets/sprites/color-frontier.png';
+import colorUnsettled from '../assets/sprites/color-unsettled.png';
+import colorDesolate from '../assets/sprites/color-desolate.png';
+import colorWildland from '../assets/sprites/color-wildland.png';
+
 // icons terrain
 import iconCoast from '../assets/sprites/icon-coast.png';
 import iconDesert from '../assets/sprites/icon-desert.png';
@@ -48,6 +56,7 @@ export const constructedLocations = {};
 export function loadTextures(handleOnComplete) {
   // http://pixijs.download/release/docs/PIXI.loaders.Loader.html
   loader
+    // terrain
     .add('colorCoast', colorCoast)
     .add('colorDesert', colorDesert)
     .add('colorForest', colorForest)
@@ -57,6 +66,14 @@ export function loadTextures(handleOnComplete) {
     .add('colorSwamp', colorSwamp)
     .add('colorLake', colorLake)
     .add('colorOcean', colorOcean)
+    // population density
+    .add('colorDense', colorDense)
+    .add('colorScattered', colorScattered)
+    .add('colorFrontier', colorFrontier)
+    .add('colorUnsettled', colorUnsettled)
+    .add('colorDesolate', colorDesolate)
+    .add('colorWildland', colorWildland)
+    // icons terrain
     .add('iconCoast', iconCoast)
     .add('iconDesert', iconDesert)
     .add('iconForest', iconForest)
@@ -64,6 +81,7 @@ export function loadTextures(handleOnComplete) {
     .add('iconMountains', iconMountains)
     .add('iconPlains', iconPlains)
     .add('iconSwamp', iconSwamp)
+    // icons constucted locations
     .add('iconCapital', iconCapital)
     .add('iconCity', iconCity)
     .add('iconTown', iconTown)
@@ -88,6 +106,7 @@ export function loadTextures(handleOnComplete) {
   loader.load((l, resources) => {
     colors.keys = ['coast', 'desert', 'forest', 'hills', 'mountains', 'plains', 'swamp', 'lake', 'ocean'];
     colors.textures = {
+      // terrains
       coast: new Texture.fromImage(resources.colorCoast.url),
       desert: new Texture.fromImage(resources.colorDesert.url),
       forest: new Texture.fromImage(resources.colorForest.url),
@@ -97,6 +116,13 @@ export function loadTextures(handleOnComplete) {
       swamp: new Texture.fromImage(resources.colorSwamp.url),
       lake: new Texture.fromImage(resources.colorLake.url),
       ocean: new Texture.fromImage(resources.colorOcean.url),
+      // population density
+      dense: new Texture.fromImage(resources.colorDense.url),
+      scattered: new Texture.fromImage(resources.colorScattered.url),
+      frontier: new Texture.fromImage(resources.colorFrontier.url),
+      unsettled: new Texture.fromImage(resources.colorUnsettled.url),
+      desolate: new Texture.fromImage(resources.colorDesolate.url),
+      wildland: new Texture.fromImage(resources.colorWildland.url),
     };
 
     terrains.keys = ['coast', 'desert', 'forest', 'hills', 'mountains', 'plains', 'swamp'];

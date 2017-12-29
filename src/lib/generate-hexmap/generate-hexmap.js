@@ -5,6 +5,7 @@ import {
   hexesBootstrap,
   hexRectangle,
   makeKingdoms,
+  makeSettlements,
   makeOceans,
   markBoundaries,
   seedHexes,
@@ -48,6 +49,7 @@ export default function generateHexmap({
 
   const { hexes: hexesWithKingdoms, capitalCityIds, idMapKingdoms } = makeKingdoms(hexes, 3);
   hexes = hexesWithKingdoms;
+  hexes = makeSettlements(hexes);
 
   const hexMap = {
     capitalCityIds,

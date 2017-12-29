@@ -13,7 +13,7 @@ import { hexDistance } from '../../index.prod';
 import { constructedLocations } from '../../textures/terrains.textures';
 
 export function densityMap(density: number = 1) {
-  const densities = ['dense', 'scattered', 'frontier', 'unsettled', 'desolate', 'wildland'];
+  const densities = ['scattered', 'frontier', 'unsettled', 'desolate', 'wildland'];
 
   return reduce(
     densities,
@@ -41,9 +41,6 @@ export default function seedHexes(
   kingdomCount: number,
 ) {
   const newHexes = cloneDeep(hexes);
-
-  // @TODO support for oceanic kingdoms
-  // make kingdom capital cities
   const dirtHexes = filter(newHexes, hex => hex.terrain !== 'ocean');
   const capitalCityHexes = sampleSize(dirtHexes, kingdomCount);
   const capitalCityIds = map(capitalCityHexes, hex => hex.id);
@@ -55,6 +52,7 @@ export default function seedHexes(
     merge(newHexes[capitalCityId], {
       textures: [
         newHexes[capitalCityId].textures[0],
+        // colors.textures.dense,
         constructedLocations.textures.capital,
       ],
       isCapital: true,
@@ -81,47 +79,15 @@ export default function seedHexes(
 
       idMapKingdoms[shortest.capitalCityId].push(hex.id);
 
-      // // testing purposes
-      // let texture;
-      // switch (takeCensus(shortest.distance, densityMap())) {
-      //   case 'dense': {
-      //     texture = constructedLocations.textures.stronghold;
-      //     break;
-      //   }
-      //   case 'scattered': {
-      //     texture = constructedLocations.textures.fort;
-      //     break;
-      //   }
-      //   case 'frontier': {
-      //     texture = constructedLocations.textures.camp;
-      //     break;
-      //   }
-      //   case 'unsettled': {
-      //     texture = constructedLocations.textures.village;
-      //     break;
-      //   }
-      //   case 'desolate': {
-      //     texture = constructedLocations.textures.hamlet;
-      //     break;
-      //   }
-      //   default: {
-      //     break;
-      //   }
-      // }
-
-      // const textures = [
-      //   newHexes[hex.id].textures[0],
-      //   texture || newHexes[hex.id].textures[1],
-      // ];
-      // testing purposes
-
+      const populationDensity = takeCensus(shortest.distance, densityMap(2));
       merge(newHexes[hex.id], {
         kindomId: shortest.capitalCityId,
         distanceFromCapital: shortest.distance,
-        populationDensity: takeCensus(shortest.distance, densityMap()),
-        // testing purposes
-        // textures,
-        // testing purposes
+        populationDensity,
+        // textures: [
+        //   colors.textures[populationDensity],
+        //   newHexes[hex.id].textures[1],
+        // ],
       });
     }
   });
