@@ -9,23 +9,21 @@ describe('makeKingdoms', () => {
   describe('densityMap', () => {
     it('should work with default density', () => {
       expect(densityMap()).toEqual({
-        1: 'dense',
-        2: 'scattered',
-        3: 'frontier',
-        4: 'unsettled',
-        5: 'desolate',
-        6: 'wildland',
+        1: 'scattered',
+        2: 'frontier',
+        3: 'unsettled',
+        4: 'desolate',
+        5: 'wildland',
       });
     });
 
     it('should work with custom density', () => {
       expect(densityMap(2)).toEqual({
-        2: 'dense',
-        4: 'scattered',
-        6: 'frontier',
-        8: 'unsettled',
-        10: 'desolate',
-        12: 'wildland',
+        2: 'scattered',
+        4: 'frontier',
+        6: 'unsettled',
+        8: 'desolate',
+        10: 'wildland',
       });
     });
   });
