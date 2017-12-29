@@ -79,7 +79,7 @@ export default function seedHexes(
 
       idMapKingdoms[shortest.capitalCityId].push(hex.id);
 
-      const populationDensity = takeCensus(shortest.distance, densityMap(2));
+      const populationDensity = takeCensus(shortest.distance, densityMap(1));
       merge(newHexes[hex.id], {
         kindomId: shortest.capitalCityId,
         distanceFromCapital: shortest.distance,
