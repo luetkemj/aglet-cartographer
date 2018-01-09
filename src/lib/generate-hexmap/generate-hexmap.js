@@ -19,6 +19,8 @@ export default function generateHexmap({
   hexSize,
   seedChance,
   seedChanceRatios,
+  hasOcean,
+  kingdomsCount,
 }: {
   hex: { x: number, y: number, z: number },
   gridColumns: number,
@@ -26,6 +28,8 @@ export default function generateHexmap({
   hexSize: number,
   seedChance: number,
   seedChanceRatios: number,
+  hasOcean: boolean,
+  kingdomsCount: number,
 }) {
   // array for storing an ordered array of ids to use as a lookup for our hexes object
   const idMap = hexRectangle(gridColumns, gridRows);
@@ -45,9 +49,13 @@ export default function generateHexmap({
   // seed the map with terrain
   hexes = seededHexes.hexes; // eslint-disable-line prefer-destructuring
   hexes = growSeeds(hexes, seedIds, idMapTerrainKeys);
-  hexes = makeOceans(hexes, idMapTerrainKeys, idMapBoundaries);
 
-  const { hexes: hexesWithKingdoms, capitalCityIds, idMapKingdoms } = makeKingdoms(hexes, 3);
+  if (hasOcean) {
+    hexes = makeOceans(hexes, idMapTerrainKeys, idMapBoundaries);
+  }
+
+  const { hexes: hexesWithKingdoms, capitalCityIds, idMapKingdoms } =
+    makeKingdoms(hexes, kingdomsCount);
   hexes = hexesWithKingdoms;
   hexes = makeSettlements(hexes);
 

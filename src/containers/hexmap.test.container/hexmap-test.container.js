@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import { Checkbox, NumberInput } from '@aglet/components';
 
-import { loadTextures, colors, constructedLocations } from '../../textures/terrains.textures';
+import { loadTextures, colors } from '../../textures/terrains.textures';
 import Hexmap from '../../components/hexmap/hexmap.component';
 import {
   generateHexmap,
@@ -18,6 +19,16 @@ export default class HexmapTestContainer extends Component {
     loadTextures(this.buildMapData.bind(this));
   }
 
+  desert = 1;
+  forest = 1;
+  hills = 1;
+  mountains = 1;
+  plains = 1;
+  swamp = 1;
+  water = 1;
+  hasOcean = true;
+  kingdomsCount = 3;
+
   buildMapData() {
     const config = {
       map: {
@@ -26,15 +37,13 @@ export default class HexmapTestContainer extends Component {
         hexSize: 20,
         seedChance: 15,
         seedChanceRatios: [
-          { coast: 0 },
-          { desert: 2 },
-          { forest: 2 },
-          { hills: 2 },
-          { mountains: 2 },
-          { plains: 2 },
-          { swamp: 2 },
-          { lake: 0 },
-          { ocean: 1 },
+          { desert: this.desert },
+          { forest: this.forest },
+          { hills: this.hills },
+          { mountains: this.mountains },
+          { plains: this.plains },
+          { swamp: this.swamp },
+          { ocean: this.water },
         ],
       },
     };
@@ -45,6 +54,8 @@ export default class HexmapTestContainer extends Component {
       hexSize: config.map.hexSize,
       seedChance: config.map.seedChance,
       seedChanceRatios: config.map.seedChanceRatios,
+      hasOcean: this.hasOcean,
+      kingdomsCount: this.kingdomsCount,
     });
 
     this.world = {};
@@ -87,14 +98,85 @@ export default class HexmapTestContainer extends Component {
     });
   }
 
+  handleCheck(val, name) {
+    this[name] = val;
+  }
+
+  handleChangeNumber(val, name) {
+    if (val < 0) {
+      this[name] = 0;
+    } else {
+      this[name] = Number(val);
+    }
+  }
+
   render() {
     if (this.world) {
       return (
         <div>
-          <p>Display:</p>
-          <button onClick={() => this.showPopulationDensity()}>Population Density</button>
-          <button onClick={() => this.showTerrain()}>Terrain</button>
-          <button onClick={() => this.buildMapData()}>Generate New Map</button>
+          Terrain Ratios
+          <div>
+            <NumberInput
+              name="forest"
+              label="Forest"
+              onChange={val => this.handleChangeNumber(val, 'forest')}
+              initialValue={this.forest}
+            />
+            <NumberInput
+              name="desert"
+              label="Desert"
+              onChange={val => this.handleChangeNumber(val, 'desert')}
+              initialValue={this.desert}
+            />
+            <NumberInput
+              name="hills"
+              label="Hills"
+              onChange={val => this.handleChangeNumber(val, 'hills')}
+              initialValue={this.hills}
+            />
+            <NumberInput
+              name="mountains"
+              label="Mountains"
+              onChange={val => this.handleChangeNumber(val, 'mountains')}
+              initialValue={this.mountains}
+            />
+            <NumberInput
+              name="plains"
+              label="Plains"
+              onChange={val => this.handleChangeNumber(val, 'plains')}
+              initialValue={this.plains}
+            />
+            <NumberInput
+              name="swamp"
+              label="Swamp"
+              onChange={val => this.handleChangeNumber(val, 'swamp')}
+              initialValue={this.swamp}
+            />
+            <NumberInput
+              name="water"
+              label="Water"
+              onChange={val => this.handleChangeNumber(val, 'water')}
+              initialValue={this.water}
+            />
+
+            <Checkbox
+              name="hasOcean"
+              label="Oceans"
+              onChange={val => this.handleCheck(val, 'hasOcean')}
+              defaultChecked={this.hasOcean}
+            />
+            <NumberInput
+              name="kingdomsCount"
+              label="Number of Kingdoms"
+              onChange={val => this.handleChangeNumber(val, 'kingdomsCount')}
+              initialValue={this.kingdomsCount}
+            />
+          </div>
+          <div>
+            <button onClick={() => this.showPopulationDensity()}>Population Density</button>
+            <button onClick={() => this.showTerrain()}>Terrain</button>
+            <button onClick={() => this.buildMapData()}>Generate New Map</button>
+          </div>
           <Hexmap data={this.state.world} />
         </div>
       );

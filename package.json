@@ -30,6 +30,7 @@
     "webpack": "./node_modules/.bin/webpack --config webpack.config.prod.js"
   },
   "dependencies": {
+    "@aglet/components": "2.0.0",
     "canvas": "1.6.7",
     "pixi.js": "4.5.3",
     "react": "16.2.0",
@@ -78,7 +79,7 @@
     "verbose": true,
     "moduleNameMapper": {
       "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/__mocks__/fileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
     }
   }
 }

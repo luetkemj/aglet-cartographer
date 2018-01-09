@@ -52,7 +52,6 @@ export default function seedHexes(
     merge(newHexes[capitalCityId], {
       textures: [
         newHexes[capitalCityId].textures[0],
-        // colors.textures.dense,
         constructedLocations.textures.capital,
       ],
       isCapital: true,
@@ -77,17 +76,15 @@ export default function seedHexes(
         }
       });
 
-      idMapKingdoms[shortest.capitalCityId].push(hex.id);
+      if (idMapKingdoms[shortest.capitalCityId]) {
+        idMapKingdoms[shortest.capitalCityId].push(hex.id);
+      }
 
       const populationDensity = takeCensus(shortest.distance, densityMap(1));
       merge(newHexes[hex.id], {
         kindomId: shortest.capitalCityId,
         distanceFromCapital: shortest.distance,
         populationDensity,
-        // textures: [
-        //   colors.textures[populationDensity],
-        //   newHexes[hex.id].textures[1],
-        // ],
       });
     }
   });

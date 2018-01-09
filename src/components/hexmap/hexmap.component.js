@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import HexMap from './HexMap';
 
 import style from './hexmap.component.scss';
 
-export default class Hexmap extends Component {
+export default class Hexmap extends PureComponent {
   componentDidMount() {
     this.pixiApp = new HexMap({
       showTerrainKeys: false,
