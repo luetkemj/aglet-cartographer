@@ -11,9 +11,9 @@ import {
 } from '../../index.prod';
 
 export default class HexmapTestContainer extends Component {
-  state = {
-    world: null,
-  }
+  // state = {
+  //   world: null,
+  // }
 
   componentWillMount() {
     loadTextures(this.buildMapData.bind(this));
@@ -63,13 +63,14 @@ export default class HexmapTestContainer extends Component {
     this.world.width = ((hexWidth(config.map.hexSize) * 0.75) * config.map.width) / 2;
     this.world.height = hexHeight(config.map.hexSize) * config.map.height;
 
-    this.setState({
-      world: this.world,
-    });
+    this.forceUpdate();
+    // this.setState({
+    //   world: this.world,
+    // });
   }
 
   showPopulationDensity() {
-    const newData = this.state.world;
+    const newData = this.world;
     _.each(newData.data, (hex) => {
       _.merge(hex, {
         textures: [
@@ -78,13 +79,16 @@ export default class HexmapTestContainer extends Component {
       });
     });
 
-    this.setState({
-      world: newData,
-    });
+    this.world = newData;
+    this.forceUpdate();
+
+    // this.setState({
+    //   world: newData,
+    // });
   }
 
   showTerrain() {
-    const newData = this.state.world;
+    const newData = this.world;
     _.each(newData.data, (hex) => {
       _.merge(hex, {
         textures: [
@@ -93,9 +97,11 @@ export default class HexmapTestContainer extends Component {
       });
     });
 
-    this.setState({
-      world: newData,
-    });
+    // this.setState({
+    //   world: newData,
+    // });
+    this.world = newData;
+    this.forceUpdate();
   }
 
   handleCheck(val, name) {
@@ -177,7 +183,7 @@ export default class HexmapTestContainer extends Component {
             <button onClick={() => this.showTerrain()}>Terrain</button>
             <button onClick={() => this.buildMapData()}>Generate New Map</button>
           </div>
-          <Hexmap data={this.state.world} />
+          <Hexmap data={this.world} />
         </div>
       );
     }
