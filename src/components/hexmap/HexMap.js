@@ -4,7 +4,10 @@ import HexTile from './HexTile';
 
 export default class HexMap extends Application {
   constructor(config, data) {
-    super({ antialias: true, width: 975 });
+    super({
+      antialias: true,
+      width: 975,
+    });
 
     this.config = config;
     this.data = data;

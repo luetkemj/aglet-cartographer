@@ -1,0 +1,23 @@
+@import '../../theme/swatches';
+@import '../../theme/typography';
+
+.settings {
+  display: flex;
+}
+
+.numberField {
+  width: 100px;
+  margin-right: 10px;
+}
+
+.button {
+  padding: 10px;
+  background: $swatch06;
+  color: $swatch02;
+  @include font;
+  margin-right: 10px;
+
+  &:hover {
+    background: $swatch05;
+  }
+}

@@ -70,7 +70,7 @@ export default function generateHexmap({
     seedIds,
   };
 
-  console.log(hexMap);
+  // console.log(hexMap);
 
   return hexMap;
 }

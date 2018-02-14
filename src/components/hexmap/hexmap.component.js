@@ -3,13 +3,21 @@ import PropTypes from 'prop-types';
 import { each } from 'lodash';
 import { Sprite } from 'pixi.js';
 
-
-import { colors, constructedLocations } from '../../textures/terrains.textures';
-
 import HexMap from './HexMap';
-// import HexTile from './HexTile';
-
 import style from './hexmap.component.scss';
+
+function updateSprites(hexes, data) {
+  each(hexes, (hex) => {
+    each(hex.children, (child, index) => {
+      const sprite = new Sprite(data[hex.hex.id].textures[index]);
+      sprite.position.set(0, 0);
+      sprite.width = hex.width;
+      sprite.height = hex.height;
+      hex.removeChildAt(index);
+      hex.addChildAt(sprite, index);
+    });
+  });
+}
 
 export default class Hexmap extends PureComponent {
   componentDidMount() {
@@ -20,36 +28,13 @@ export default class Hexmap extends PureComponent {
     }, this.props.data);
 
     this.canvas.appendChild(this.pixiApp.view);
+    this.pixiApp.ticker.stop();
   }
 
-  componentWillReceiveProps() {
-    // this.pixiApp = new HexMap({
-    //   showTerrainKeys: false,
-    //   showSeeds: false,
-    //   showBoundaries: false,
-    // }, nextProps.data);
-    this.pixiApp.data.data['0,0,0'].textures = [
-      colors.textures.dense,
-      constructedLocations.textures.treeFortress,
-    ];
-
-    // console.log(colors.textures.dense);
-    const hex = this.pixiApp.stage.children[0];
-    console.log(hex);
-    const newSprites = each(hex.children, (val, index) => {
-      const sprite = new Sprite(colors.textures.dense);
-      sprite.position.set(0, 0);
-      sprite.width = hex.width;
-      sprite.height = hex.height;
-
-      // hex.children[index] = sprite;
-      hex.children.splice(index, 1);
-      hex.addChild(sprite);
-    });
-    console.log(newSprites);
-    console.log(this.pixiApp);
-
+  componentWillReceiveProps(props) {
+    updateSprites(this.pixiApp.stage.children, props.data.data);
     this.pixiApp.render();
+    this.pixiApp.ticker.stop();
   }
 
   render() {

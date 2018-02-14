@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "yarn clean:dist && yarn test && yarn webpack",
-    "build:storybook": "build-storybook",
+    "build:storybook": "./node_modules/.bin/build-storybook",
     "clean:coverage": "rimraf coverage",
     "clean:dist": "rimraf dist",
     "clean:node_modules": "rimraf node_modules",
@@ -24,7 +24,7 @@
     "lint": "yarn lint:eslint && yarn lint:sass-lint",
     "prepublish": "yarn build",
     "reinstall": "yarn clean && yarn",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "./node_modules/.bin/start-storybook -p 6006",
     "test:watch": "jest --watch",
     "test": "yarn lint && jest --coverage && yarn flow",
     "webpack": "./node_modules/.bin/webpack --config webpack.config.prod.js"

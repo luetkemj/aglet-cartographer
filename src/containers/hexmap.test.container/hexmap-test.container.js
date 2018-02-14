@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { Checkbox, NumberInput } from '@aglet/components';
 
-import { loadTextures, colors } from '../../textures/terrains.textures';
+import { loadTextures } from '../../textures/terrains.textures';
 import Hexmap from '../../components/hexmap/hexmap.component';
 import {
   generateHexmap,
@@ -10,11 +9,9 @@ import {
   hexWidth,
 } from '../../index.prod';
 
-export default class HexmapTestContainer extends Component {
-  // state = {
-  //   world: null,
-  // }
+import style from './hexmap-test.container.scss';
 
+export default class HexmapTestContainer extends Component {
   componentWillMount() {
     loadTextures(this.buildMapData.bind(this));
   }
@@ -28,6 +25,7 @@ export default class HexmapTestContainer extends Component {
   water = 1;
   hasOcean = true;
   kingdomsCount = 3;
+  seedChance = 15;
 
   buildMapData() {
     const config = {
@@ -35,7 +33,7 @@ export default class HexmapTestContainer extends Component {
         width: 32,
         height: 16,
         hexSize: 20,
-        seedChance: 15,
+        seedChance: this.seedChance,
         seedChanceRatios: [
           { desert: this.desert },
           { forest: this.forest },
@@ -64,44 +62,6 @@ export default class HexmapTestContainer extends Component {
     this.world.height = hexHeight(config.map.hexSize) * config.map.height;
 
     this.forceUpdate();
-    // this.setState({
-    //   world: this.world,
-    // });
-  }
-
-  showPopulationDensity() {
-    const newData = this.world;
-    _.each(newData.data, (hex) => {
-      _.merge(hex, {
-        textures: [
-          colors.textures[hex.populationDensity],
-        ],
-      });
-    });
-
-    this.world = newData;
-    this.forceUpdate();
-
-    // this.setState({
-    //   world: newData,
-    // });
-  }
-
-  showTerrain() {
-    const newData = this.world;
-    _.each(newData.data, (hex) => {
-      _.merge(hex, {
-        textures: [
-          colors.textures[hex.terrain],
-        ],
-      });
-    });
-
-    // this.setState({
-    //   world: newData,
-    // });
-    this.world = newData;
-    this.forceUpdate();
   }
 
   handleCheck(val, name) {
@@ -121,67 +81,96 @@ export default class HexmapTestContainer extends Component {
       return (
         <div>
           Terrain Ratios
-          <div>
-            <NumberInput
-              name="forest"
-              label="Forest"
-              onChange={val => this.handleChangeNumber(val, 'forest')}
-              initialValue={this.forest}
-            />
-            <NumberInput
-              name="desert"
-              label="Desert"
-              onChange={val => this.handleChangeNumber(val, 'desert')}
-              initialValue={this.desert}
-            />
-            <NumberInput
-              name="hills"
-              label="Hills"
-              onChange={val => this.handleChangeNumber(val, 'hills')}
-              initialValue={this.hills}
-            />
-            <NumberInput
-              name="mountains"
-              label="Mountains"
-              onChange={val => this.handleChangeNumber(val, 'mountains')}
-              initialValue={this.mountains}
-            />
-            <NumberInput
-              name="plains"
-              label="Plains"
-              onChange={val => this.handleChangeNumber(val, 'plains')}
-              initialValue={this.plains}
-            />
-            <NumberInput
-              name="swamp"
-              label="Swamp"
-              onChange={val => this.handleChangeNumber(val, 'swamp')}
-              initialValue={this.swamp}
-            />
-            <NumberInput
-              name="water"
-              label="Water"
-              onChange={val => this.handleChangeNumber(val, 'water')}
-              initialValue={this.water}
-            />
+          <div className={style.settings}>
+            <div className={style.numberField}>
+              <NumberInput
+                name="forest"
+                label="Forest"
+                onChange={val => this.handleChangeNumber(val, 'forest')}
+                initialValue={this.forest}
+              />
+            </div>
+            <div className={style.numberField}>
+              <NumberInput
+                name="desert"
+                label="Desert"
+                onChange={val => this.handleChangeNumber(val, 'desert')}
+                initialValue={this.desert}
+              />
+            </div>
+            <div className={style.numberField}>
+              <NumberInput
+                name="hills"
+                label="Hills"
+                onChange={val => this.handleChangeNumber(val, 'hills')}
+                initialValue={this.hills}
+              />
+            </div>
+            <div className={style.numberField}>
+              <NumberInput
+                name="mountains"
+                label="Mountains"
+                onChange={val => this.handleChangeNumber(val, 'mountains')}
+                initialValue={this.mountains}
+              />
+            </div>
+            <div className={style.numberField}>
+              <NumberInput
+                name="plains"
+                label="Plains"
+                onChange={val => this.handleChangeNumber(val, 'plains')}
+                initialValue={this.plains}
+              />
+            </div>
+            <div className={style.numberField}>
+              <NumberInput
+                name="swamp"
+                label="Swamp"
+                onChange={val => this.handleChangeNumber(val, 'swamp')}
+                initialValue={this.swamp}
+              />
+            </div>
+            <div className={style.numberField}>
+              <NumberInput
+                name="water"
+                label="Water"
+                onChange={val => this.handleChangeNumber(val, 'water')}
+                initialValue={this.water}
+              />
+            </div>
 
-            <Checkbox
-              name="hasOcean"
-              label="Oceans"
-              onChange={val => this.handleCheck(val, 'hasOcean')}
-              defaultChecked={this.hasOcean}
-            />
-            <NumberInput
-              name="kingdomsCount"
-              label="Number of Kingdoms"
-              onChange={val => this.handleChangeNumber(val, 'kingdomsCount')}
-              initialValue={this.kingdomsCount}
-            />
+            <div className={style.numberField}>
+              <NumberInput
+                name="seedChance"
+                label="Seed Chance"
+                onChange={val => this.handleChangeNumber(val, 'seedChance')}
+                initialValue={this.seedChance}
+              />
+            </div>
+
+            <div className={style.checkbox}>
+              <Checkbox
+                name="hasOcean"
+                label="Oceans"
+                onChange={val => this.handleCheck(val, 'hasOcean')}
+                defaultChecked={this.hasOcean}
+              />
+            </div>
+            <div className={style.numberField}>
+              <NumberInput
+                name="kingdomsCount"
+                label="Kingdoms"
+                onChange={val => this.handleChangeNumber(val, 'kingdomsCount')}
+                initialValue={this.kingdomsCount}
+              />
+            </div>
           </div>
           <div>
-            <button onClick={() => this.showPopulationDensity()}>Population Density</button>
-            <button onClick={() => this.showTerrain()}>Terrain</button>
-            <button onClick={() => this.buildMapData()}>Generate New Map</button>
+            <button
+              className={style.button}
+              onClick={() => this.buildMapData()}
+            >Generate New Map
+            </button>
           </div>
           <Hexmap data={this.world} />
         </div>
