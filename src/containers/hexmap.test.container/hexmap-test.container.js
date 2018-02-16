@@ -3,7 +3,8 @@ import _ from 'lodash';
 import { Checkbox, NumberInput } from '@aglet/components';
 
 import { loadTextures, colors } from '../../textures/terrains.textures';
-import Hexmap from '../../components/hexmap/hexmap.component';
+// import Hexmap from '../../components/hexmap/hexmap.component';
+import HexmapD3 from '../../components/hexmap-d3/hexmap-d3.component';
 import {
   generateHexmap,
   hexHeight,
@@ -29,11 +30,14 @@ export default class HexmapTestContainer extends Component {
   hasOcean = true;
   kingdomsCount = 3;
 
+  width = 50;
+  height = 30;
+
   buildMapData() {
     const config = {
       map: {
-        width: 32,
-        height: 16,
+        width: this.width,
+        height: this.height,
         hexSize: 20,
         seedChance: 15,
         seedChanceRatios: [
@@ -114,6 +118,19 @@ export default class HexmapTestContainer extends Component {
     if (this.world) {
       return (
         <div>
+          <div style={{
+            width: 500,
+            height: 500,
+            overflow: 'scroll',
+          }}
+          >
+            <HexmapD3
+              world={this.state.world}
+              columns={this.width}
+              rows={this.height}
+              size={20}
+            />
+          </div>
           Terrain Ratios
           <div>
             <NumberInput
@@ -177,7 +194,6 @@ export default class HexmapTestContainer extends Component {
             <button onClick={() => this.showTerrain()}>Terrain</button>
             <button onClick={() => this.buildMapData()}>Generate New Map</button>
           </div>
-          <Hexmap data={this.state.world} />
         </div>
       );
     }
