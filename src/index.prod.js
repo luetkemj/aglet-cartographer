@@ -13,6 +13,7 @@ export hexToId from './lib/hex-to-id';
 export hexToPixel from './lib/hex-to-pixel';
 export hexWidth from './lib/hex-width';
 export idToHex from './lib/id-to-hex';
+export pixelToHex from './lib/pixel-to-hex';
 
 // Mapping functions
 export boundary from './lib/boundary';

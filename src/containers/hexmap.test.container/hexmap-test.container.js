@@ -14,6 +14,10 @@ import {
 export default class HexmapTestContainer extends Component {
   state = {
     world: null,
+    scrollPos: {
+      x: 0,
+      y: 0,
+    },
   }
 
   componentWillMount() {
@@ -31,7 +35,7 @@ export default class HexmapTestContainer extends Component {
   kingdomsCount = 3;
 
   width = 50;
-  height = 30;
+  height = 50;
 
   buildMapData() {
     const config = {
@@ -118,17 +122,23 @@ export default class HexmapTestContainer extends Component {
     if (this.world) {
       return (
         <div>
-          <div style={{
-            width: 500,
-            height: 500,
-            overflow: 'scroll',
-          }}
+          <div
+            ref={ref => this.myRef = ref} // eslint-disable-line no-return-assign
+            onScroll={() => this.setState({
+              scrollPos: { x: this.myRef.scrollLeft, y: this.myRef.scrollTop },
+            })}
+            style={{
+              width: 500,
+              height: 500,
+              overflow: 'scroll',
+            }}
           >
             <HexmapD3
               world={this.state.world}
               columns={this.width}
               rows={this.height}
               size={20}
+              scrollPos={this.state.scrollPos}
             />
           </div>
           Terrain Ratios

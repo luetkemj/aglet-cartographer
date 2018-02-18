@@ -7,7 +7,7 @@ import hexPoints from '../../lib/hex-points';
 import hexToPixel from '../../lib/hex-to-pixel';
 import hexWidth from '../../lib/hex-width';
 import idToHex from '../../lib/id-to-hex';
-import { hexRectangle } from '../../index.prod';
+import { hexRectangle, pixelToHex } from '../../index.prod';
 
 import style from './hexmap-d3.component.scss';
 
@@ -22,7 +22,13 @@ export default class Hexmap extends Component {
       .append('g')
       .attr('transform', `translate(${this.props.size}, ${hexHeight(this.props.size) / 2})`);
 
-    this.update();
+    this.update(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('cwrp');
+    console.log(nextProps);
+    this.update(nextProps);
   }
 
   terrainColor = (color) => {
@@ -40,18 +46,32 @@ export default class Hexmap extends Component {
     return colors[color];
   }
 
-  worldView = hex => hexRectangle(10, 10, hex);
+  currentWorldViewData = []
+  worldView = (hex) => {
+    this.currentWorldViewData.length = 0;
+    this.currentWorldViewData.push(...hexRectangle(10, 10, hex));
+  };
 
-  update = () => {
-    const selection =
-    this.svg.selectAll('rect').data(this.worldView({ x: 0, y: 0, z: 0 }));
-    // const selection = this.svg.selectAll('rect').data(Object.keys(this.props.world.data));
+  update = (props) => {
+    this.worldView(pixelToHex(props.scrollPos, props.size));
+    console.log(this.currentWorldViewData);
+
+    const selection = this.svg.selectAll('rect').data(this.currentWorldViewData);
+
     selection.enter()
       .append('polygon')
       .attr('stroke', 'black')
       .attr('stroke-width', 1)
-      .attr('fill', d => this.terrainColor(this.props.world.data[d].terrain))
-      .attr('points', d => hexPoints(hexToPixel(idToHex(d), this.props.size), this.props.size));
+      .attr('fill', d => this.terrainColor(props.world.data[d].terrain))
+      .attr('points', d => hexPoints(hexToPixel(idToHex(d), props.size), props.size))
+      .on('mouseenter', (d, i, dd) => { d3.select(dd[i]).attr('opacity', '0.5'); })
+      .on('mouseleave', (d, i, dd) => { d3.select(dd[i]).attr('opacity', '1'); });
+    selection.enter()
+      .append('text')
+      .attr('x', d => (hexToPixel(idToHex(d), props.size).x) - (props.size / 2))
+      .attr('y', d => hexToPixel(idToHex(d), props.size).y)
+      .attr('font-size', 10)
+      .text(d => d);
     selection.exit().remove();
   }
 
@@ -66,8 +86,13 @@ export default class Hexmap extends Component {
 }
 
 Hexmap.propTypes = {
-  world: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  world: PropTypes.shape({}).isRequired,
   columns: PropTypes.number.isRequired,
   rows: PropTypes.number.isRequired,
   size: PropTypes.number.isRequired,
+  scrollPos: PropTypes.shape({}),
+};
+
+Hexmap.defaultProps = {
+  scrollPos: { x: 0, y: 0 },
 };
