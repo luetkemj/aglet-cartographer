@@ -1,4 +1,4 @@
-// @flow
+import _ from 'lodash';
 
 import {
   hexGetThirdCoordinate,
@@ -7,14 +7,14 @@ import {
 // returns an array of hex ids compromising a rectangle of a given width and height from a specified
 // origin hex
 export default function hexRectangle(
-  gridColumns: number,
-  gridRows: number,
-  hex: { x: number, y: number, z: number },
+  gridColumns,
+  gridRows,
+  hex,
 ) {
   const hexIds = [];
   // the top left hex
   const originHex = hex || { x: 0, y: 0, z: 0 };
-  const startHex = originHex;
+  const startHex = _.cloneDeep(originHex);
   const initial = startHex.x;
 
   for (let i = initial; i < initial + gridColumns; i += 1) {
@@ -23,7 +23,14 @@ export default function hexRectangle(
 
     for (let j = 0; j < gridRows; j += 1) {
       const { x } = startHex;
-      const y = startHex.y + j;
+      // const y = startHex.y + j;
+      let y;
+      if (i === 0 && j === 0) {
+        y = startHex.y = originHex.y; // eslint-disable-line
+      } else {
+        y = startHex.y + j;
+      }
+      // const y = (i === 0 && j === 0 ? startHex.y = originHex.y : originHex.y + j);
       const z = hexGetThirdCoordinate(x, y);
       const hexId = `${x},${y},${z}`;
 

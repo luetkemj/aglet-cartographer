@@ -15,8 +15,8 @@ describe('pixelToHex', () => {
   });
 
   it('should work', () => {
-    const x = 239828;
-    const y = -29889;
+    const x = 0;
+    const y = 19;
     const hex = {
       x,
       y,

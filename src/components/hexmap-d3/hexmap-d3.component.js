@@ -26,8 +26,6 @@ export default class Hexmap extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('cwrp');
-    console.log(nextProps);
     this.update(nextProps);
   }
 
@@ -48,15 +46,16 @@ export default class Hexmap extends Component {
 
   currentWorldViewData = []
   worldView = (hex) => {
-    this.currentWorldViewData.length = 0;
-    this.currentWorldViewData.push(...hexRectangle(10, 10, hex));
+    this.currentWorldViewData = hexRectangle(10, 10, hex);
   };
 
   update = (props) => {
     this.worldView(pixelToHex(props.scrollPos, props.size));
+
+    console.log(props.scrollPos);
     console.log(this.currentWorldViewData);
 
-    const selection = this.svg.selectAll('rect').data(this.currentWorldViewData);
+    const selection = this.svg.selectAll('polygon').data(this.currentWorldViewData, d => d);
 
     selection.enter()
       .append('polygon')

@@ -5,6 +5,7 @@ import { Checkbox, NumberInput } from '@aglet/components';
 import { loadTextures, colors } from '../../textures/terrains.textures';
 // import Hexmap from '../../components/hexmap/hexmap.component';
 import HexmapD3 from '../../components/hexmap-d3/hexmap-d3.component';
+// import HexmapReact from '../../components/hexmap-react/hexmap-react.component';
 import {
   generateHexmap,
   hexHeight,
@@ -23,6 +24,14 @@ export default class HexmapTestContainer extends Component {
   componentWillMount() {
     loadTextures(this.buildMapData.bind(this));
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (nextState.scrollPos !== this.state.scrollPos) {
+  //     return false;
+  //   }
+  //
+  //   return true;
+  // }
 
   desert = 1;
   forest = 1;
@@ -119,6 +128,7 @@ export default class HexmapTestContainer extends Component {
   }
 
   render() {
+    // console.log('render hexmap-test-container');
     if (this.world) {
       return (
         <div>
