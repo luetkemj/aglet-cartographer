@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
+import _ from 'lodash';
 
 import hexHeight from '../../lib/hex-height';
 import hexPoints from '../../lib/hex-points';
@@ -46,7 +47,7 @@ export default class Hexmap extends Component {
 
   currentWorldViewData = []
   worldView = (hex) => {
-    this.currentWorldViewData = hexRectangle(10, 10, hex);
+    this.currentWorldViewData = hexRectangle(20, 20, hex);
   };
 
   update = (props) => {
@@ -61,16 +62,16 @@ export default class Hexmap extends Component {
       .append('polygon')
       .attr('stroke', 'black')
       .attr('stroke-width', 1)
-      .attr('fill', d => this.terrainColor(props.world.data[d].terrain))
+      .attr('fill', d => this.terrainColor(_.get(props.world.data[d], 'terrain', '#ffffff')))
       .attr('points', d => hexPoints(hexToPixel(idToHex(d), props.size), props.size))
       .on('mouseenter', (d, i, dd) => { d3.select(dd[i]).attr('opacity', '0.5'); })
       .on('mouseleave', (d, i, dd) => { d3.select(dd[i]).attr('opacity', '1'); });
-    selection.enter()
-      .append('text')
-      .attr('x', d => (hexToPixel(idToHex(d), props.size).x) - (props.size / 2))
-      .attr('y', d => hexToPixel(idToHex(d), props.size).y)
-      .attr('font-size', 10)
-      .text(d => d);
+    // selection.enter()
+    //   .append('text')
+    //   .attr('x', d => (hexToPixel(idToHex(d), props.size).x) - (props.size / 2))
+    //   .attr('y', d => hexToPixel(idToHex(d), props.size).y)
+    //   .attr('font-size', 10)
+    //   .text(d => d);
     selection.exit().remove();
   }
 
