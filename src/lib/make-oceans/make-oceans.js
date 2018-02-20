@@ -1,6 +1,6 @@
 // @flow
 import { cloneDeep, each, merge } from 'lodash';
-import { colors } from '../../textures/terrains.textures';
+// import { colors } from '../../textures/terrains.textures';
 
 
 // @TODO should this be a pure function? yeah probably
@@ -26,7 +26,7 @@ export default function makeOceans(
     each(blackList, (terrainKey) => {
       each(idMapTerrainKeys[terrainKey], (hexId) => {
         merge(newHexes[hexId], {
-          textures: [colors.textures.ocean, null],
+          // textures: [colors.textures.ocean, null],
           terrain: 'ocean',
         });
       });

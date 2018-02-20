@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Checkbox, NumberInput } from '@aglet/components';
 
-import { loadTextures, colors } from '../../textures/terrains.textures';
+// import { loadTextures, colors } from '../../textures/terrains.textures';
 // import Hexmap from '../../components/hexmap/hexmap.component';
 import HexmapD3 from '../../components/hexmap-d3/hexmap-d3.component';
 // import HexmapReact from '../../components/hexmap-react/hexmap-react.component';
@@ -22,7 +22,8 @@ export default class HexmapTestContainer extends Component {
   }
 
   componentWillMount() {
-    loadTextures(this.buildMapData.bind(this));
+    // loadTextures(this.buildMapData.bind(this));
+    this.buildMapData();
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -90,7 +91,7 @@ export default class HexmapTestContainer extends Component {
     _.each(newData.data, (hex) => {
       _.merge(hex, {
         textures: [
-          colors.textures[hex.populationDensity],
+          // colors.textures[hex.populationDensity],
         ],
       });
     });
@@ -105,7 +106,7 @@ export default class HexmapTestContainer extends Component {
     _.each(newData.data, (hex) => {
       _.merge(hex, {
         textures: [
-          colors.textures[hex.terrain],
+          // colors.textures[hex.terrain],
         ],
       });
     });

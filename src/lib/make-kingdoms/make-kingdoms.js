@@ -10,7 +10,7 @@ import {
 } from 'lodash';
 
 import { hexDistance } from '../../index.prod';
-import { constructedLocations } from '../../textures/terrains.textures';
+// import { constructedLocations } from '../../textures/terrains.textures';
 
 export function densityMap(density: number = 1) {
   const densities = ['scattered', 'frontier', 'unsettled', 'desolate', 'wildland'];
@@ -50,10 +50,10 @@ export default function seedHexes(
     idMapKingdoms[capitalCityId] = [capitalCityId];
 
     merge(newHexes[capitalCityId], {
-      textures: [
-        newHexes[capitalCityId].textures[0],
-        constructedLocations.textures.capital,
-      ],
+      // textures: [
+      //   newHexes[capitalCityId].textures[0],
+      //   constructedLocations.textures.capital,
+      // ],
       isCapital: true,
       distanceFromCapital: 0,
       populationDensity: 'dense',

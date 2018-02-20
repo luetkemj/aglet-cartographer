@@ -1,5 +1,5 @@
 import { cloneDeep, each, filter, merge, random } from 'lodash';
-import { constructedLocations } from '../../textures/terrains.textures';
+// import { constructedLocations } from '../../textures/terrains.textures';
 
 const settlementsByDensityMap = {
   dense: {
@@ -52,7 +52,7 @@ export default function makeSettlements(hexes) {
           const settlement = settlementsMap[key];
           if (settlement) {
             merge(newHexes[hex.id], {
-              textures: [hex.textures[0], constructedLocations.textures[settlement]],
+              // textures: [hex.textures[0], constructedLocations.textures[settlement]],
               dominantConstructedLocation: settlement,
             });
           }
