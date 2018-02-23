@@ -8,7 +8,7 @@ import hexPoints from '../../lib/hex-points';
 import hexToPixel from '../../lib/hex-to-pixel';
 import hexWidth from '../../lib/hex-width';
 import idToHex from '../../lib/id-to-hex';
-import { hexRectangle, pixelToHex } from '../../index.prod';
+import { hexDistance, hexRectangle, pixelToHex } from '../../index.prod';
 
 import style from './hexmap-d3.component.scss';
 
@@ -20,14 +20,38 @@ export default class Hexmap extends Component {
       .attr('class', 'svg')
       .attr('width', ((hexWidth(this.props.size) * (this.props.columns + 0.35)) * 0.75))
       .attr('height', (hexHeight(this.props.size) * this.props.rows) + (hexHeight(this.props.size) / 2))
-      .append('g')
-      .attr('transform', `translate(${this.props.size}, ${hexHeight(this.props.size) / 2})`);
+      .append('g');
 
+    this.originHex = pixelToHex(this.props.scrollPos, this.props.size);
     this.update(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.update(nextProps);
+    const delta = {
+      x: this.props.scrollPos.x - nextProps.scrollPos.x,
+      y: this.props.scrollPos.y - nextProps.scrollPos.y,
+    };
+
+    const nextHex = pixelToHex(nextProps.scrollPos, nextProps.size);
+
+    if (delta.x > 0 || delta.y > 0) {
+      if (delta.x > 0) {
+        const x = nextProps.scrollPos.x + 10;
+        const { y } = nextProps.scrollPos;
+        this.originHex = pixelToHex({ x, y }, nextProps.size);
+      }
+
+      if (delta.y > 0) {
+        const { x } = nextProps.scrollPos;
+        const { y } = nextProps.scrollPos.y + 10;
+        this.originHex = pixelToHex({ x, y }, nextProps.size);
+      }
+
+      this.update(nextProps);
+    } else if (hexDistance(this.originHex, nextHex) > 10) {
+      this.originHex = nextHex;
+      this.update(nextProps);
+    }
   }
 
   terrainColor = (color) => {
@@ -51,10 +75,8 @@ export default class Hexmap extends Component {
   };
 
   update = (props) => {
-    this.worldView(pixelToHex(props.scrollPos, props.size));
-
-    console.log(props.scrollPos);
-    console.log(this.currentWorldViewData);
+    // this.worldView(pixelToHex(props.scrollPos, props.size));
+    this.worldView(this.originHex);
 
     const selection = this.svg.selectAll('polygon').data(this.currentWorldViewData, d => d);
 
@@ -86,11 +108,14 @@ export default class Hexmap extends Component {
 }
 
 Hexmap.propTypes = {
-  world: PropTypes.shape({}).isRequired,
+  world: PropTypes.shape({}).isRequired, // eslint-disable-line react/no-unused-prop-types
   columns: PropTypes.number.isRequired,
   rows: PropTypes.number.isRequired,
   size: PropTypes.number.isRequired,
-  scrollPos: PropTypes.shape({}),
+  scrollPos: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+  }),
 };
 
 Hexmap.defaultProps = {

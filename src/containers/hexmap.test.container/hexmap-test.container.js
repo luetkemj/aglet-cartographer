@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Checkbox, NumberInput } from '@aglet/components';
 
-// import { loadTextures, colors } from '../../textures/terrains.textures';
-// import Hexmap from '../../components/hexmap/hexmap.component';
 import HexmapD3 from '../../components/hexmap-d3/hexmap-d3.component';
-// import HexmapReact from '../../components/hexmap-react/hexmap-react.component';
+
 import {
   generateHexmap,
   hexHeight,
@@ -22,25 +20,16 @@ export default class HexmapTestContainer extends Component {
   }
 
   componentWillMount() {
-    // loadTextures(this.buildMapData.bind(this));
     this.buildMapData();
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   if (nextState.scrollPos !== this.state.scrollPos) {
-  //     return false;
-  //   }
-  //
-  //   return true;
-  // }
-
-  desert = 1;
-  forest = 1;
-  hills = 1;
-  mountains = 1;
-  plains = 1;
-  swamp = 1;
-  water = 1;
+  desert = 10;
+  forest = 10;
+  hills = 10;
+  mountains = 10;
+  plains = 10;
+  swamp = 10;
+  water = 2;
   hasOcean = true;
   kingdomsCount = 3;
 
@@ -53,7 +42,7 @@ export default class HexmapTestContainer extends Component {
         width: this.width,
         height: this.height,
         hexSize: 20,
-        seedChance: 15,
+        seedChance: 10,
         seedChanceRatios: [
           { desert: this.desert },
           { forest: this.forest },
@@ -90,9 +79,7 @@ export default class HexmapTestContainer extends Component {
     const newData = this.state.world;
     _.each(newData.data, (hex) => {
       _.merge(hex, {
-        textures: [
-          // colors.textures[hex.populationDensity],
-        ],
+        textures: [],
       });
     });
 
@@ -105,9 +92,7 @@ export default class HexmapTestContainer extends Component {
     const newData = this.state.world;
     _.each(newData.data, (hex) => {
       _.merge(hex, {
-        textures: [
-          // colors.textures[hex.terrain],
-        ],
+        textures: [],
       });
     });
 
@@ -129,7 +114,6 @@ export default class HexmapTestContainer extends Component {
   }
 
   render() {
-    // console.log('render hexmap-test-container');
     if (this.world) {
       return (
         <div>
@@ -139,9 +123,10 @@ export default class HexmapTestContainer extends Component {
               scrollPos: { x: this.myRef.scrollLeft, y: this.myRef.scrollTop },
             })}
             style={{
-              width: 500,
-              height: 500,
+              width: 200,
+              height: 200,
               overflow: 'scroll',
+              border: '1px solid black',
             }}
           >
             <HexmapD3
